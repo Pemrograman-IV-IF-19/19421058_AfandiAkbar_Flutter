@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toko_gitar_flutter/utils/constants.dart';
- 
+
 ThemeData theme() {
   return ThemeData(
     scaffoldBackgroundColor: Colors.white,
@@ -11,7 +11,7 @@ ThemeData theme() {
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 }
- 
+
 InputDecorationTheme inputDecorationTheme() {
   OutlineInputBorder outlineInputBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(28),
@@ -29,14 +29,14 @@ InputDecorationTheme inputDecorationTheme() {
     border: outlineInputBorder,
   );
 }
- 
+
 TextTheme textTheme() {
   return const TextTheme(
     bodyText1: TextStyle(color: kTextColor),
     bodyText2: TextStyle(color: kTextColor),
   );
 }
- 
+
 AppBarTheme appBarTheme() {
   return const AppBarTheme(
     color: Colors.white,
@@ -47,4 +47,16 @@ AppBarTheme appBarTheme() {
       headline6: TextStyle(color: Color(0XFF8B8B8B), fontSize: 18),
     ),
   );
+}
+
+//add
+List<BoxShadow> shadow = <BoxShadow>[
+  BoxShadow(color: Color(0xfff8f8f8), blurRadius: 10, spreadRadius: 15),
+];
+double fullWidth(BuildContext context) {
+  return MediaQuery.of(context).size.width;
+}
+
+double fullHeight(BuildContext context) {
+  return MediaQuery.of(context).size.height;
 }

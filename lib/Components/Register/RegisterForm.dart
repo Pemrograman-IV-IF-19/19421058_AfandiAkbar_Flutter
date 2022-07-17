@@ -1,34 +1,44 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:toko_gitar_flutter/Components/custom_surfix_icon.dart';
 import 'package:toko_gitar_flutter/Components/default_button-custom_color.dart';
 import 'package:toko_gitar_flutter/Screens/Login/LoginScreens.dart';
+import 'package:toko_gitar_flutter/Screens/Register/Registrasi.dart';
+import 'package:toko_gitar_flutter/Response/UsersResponse.dart';
 import 'package:toko_gitar_flutter/size_config.dart';
 import 'package:toko_gitar_flutter/utils/constants.dart';
 
-class SignUpform extends StatefulWidget {
+class Registerform extends StatefulWidget {
   @override
-  _SignUpform createState() => _SignUpform();
+  _Registerform createState() => _Registerform();
 }
 
-class _SignUpform extends State<SignUpform> {
+class _Registerform extends State<Registerform> {
   
-  final _formkey = GlobalKey<FormState>();
-  String? namalengkap;
+  final _formKey = GlobalKey<FormState>();
   String? username;
-  String? email;
   String? password;
   bool? remember = false;
 
-  TextEditingController txtNamalengkap = TextEditingController(),
+  FocusNode focusNode = new FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  TextEditingController 
+      txtNamalengkap = TextEditingController(),
       txtUsername = TextEditingController(),
       txtEmail = TextEditingController(),
       txtPassword = TextEditingController();
 
-  FocusNode focusNode = new FocusNode();
+
  
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Column(
         children: [
           buildNamaLengkap(),
@@ -41,8 +51,20 @@ class _SignUpform extends State<SignUpform> {
           SizedBox(height: getProportionateScreenHeight(30)),
           DefaultButtonCustomeColor(
             color: kPrimaryColor,
-            text:'REGISTER',
-            press: () {},
+            text:'Register',
+            press: () {
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
+                // if all are valid then go to success screen
+                LoginResponse.registerResponse({
+                  "userName": txtUsername.text,
+                  "password": txtPassword.text,
+                  "namaLengkap": txtNamalengkap.text,
+                  "email": txtEmail.text,
+                  "role" : "user"
+                }, context);
+              }
+            },
           ),
           SizedBox(
             height: 20,
@@ -51,7 +73,7 @@ class _SignUpform extends State<SignUpform> {
             onTap: () {
               Navigator.pushNamed(context, LoginScreen.routeName);
             },
-            child: Text(
+            child: const Text(
               "Sudah Punya Akun ? Masuk Disini",
               style: TextStyle(decoration: TextDecoration.underline),
             ),
@@ -65,6 +87,7 @@ class _SignUpform extends State<SignUpform> {
     return TextFormField(
       controller: txtNamalengkap,
       keyboardType: TextInputType.text,
+      onSaved: (newValue) => username = newValue,
       style: mTitleStyle,
       decoration: InputDecoration(
         labelText: 'Nama Lengkap',
@@ -84,6 +107,7 @@ class _SignUpform extends State<SignUpform> {
       controller: txtUsername,
       keyboardType: TextInputType.text,
       style: mTitleStyle,
+      onSaved: (newValue) => username = newValue,
       decoration: InputDecoration(
         labelText: 'Username',
         hintText: 'Masukkan Username Anda',
@@ -99,8 +123,9 @@ class _SignUpform extends State<SignUpform> {
 
   TextFormField buildEmail() {
     return TextFormField(
-      controller: txtUsername,
+      controller: txtEmail,
       keyboardType: TextInputType.text,
+      onSaved: (newValue) => username = newValue,
       style: mTitleStyle,
       decoration: InputDecoration(
         labelText: 'Email',
@@ -119,6 +144,7 @@ class _SignUpform extends State<SignUpform> {
     return TextFormField(
       controller: txtPassword,
       obscureText: true,
+      onSaved: (newValue) => password = newValue,
       style: mTitleStyle,
       decoration: InputDecoration(
         labelText: 'Password',

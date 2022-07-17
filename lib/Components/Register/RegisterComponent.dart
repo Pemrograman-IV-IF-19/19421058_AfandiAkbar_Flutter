@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_shadow/simple_shadow.dart';
 import 'package:toko_gitar_flutter/Components/Register/RegisterForm.dart';
@@ -10,6 +11,12 @@ class RegisterComponent extends StatefulWidget{
 }
 
 class _RegisterComponent extends State<RegisterComponent>{
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,19 +33,18 @@ class _RegisterComponent extends State<RegisterComponent>{
                 SizedBox(height: SizeConfig.screenHeight * 0.04
                 ),
                 Padding(padding: EdgeInsets.only(left: 10),
-                child: Container(
-                  width: 666,
-                  child: (
-                    Text(
-                      "Registrasi",
-                      style: mTitleStyle,
-                    )
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Registrasi', style: mTitleStyle18),
+                    ],
                   ),
-                )),
-                SizedBox(
-                  height: 20,
                 ),
-                SignUpform()
+                SizedBox(
+                  height: 30,
+                ),
+                Registerform()
               ],
             ),
           ),
